@@ -2,7 +2,7 @@ name: "MSFT Auth Attachment"
 description: |
   Embedded HTML smuggling with artefacts relating to Microsoft
 type: "rule"
-severity: "low"
+severity: "high"
 source: |
   type.inbound and
   any(attachments, 
