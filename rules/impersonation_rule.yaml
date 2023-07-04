@@ -1,0 +1,26 @@
+name: "Brand impersonation: RBC BD"
+description: |
+  Impersonation of the RBC BD
+type: "rule"
+severity: "low"
+source: |
+  type.inbound
+  and (
+      strings.ilike(sender.display_name, '*Brewin Dolphin*')
+      or strings.ilike(sender.email.domain.domain, '*RBC Brewin Dolphin*')
+  )
+  and sender.email.domain.root_domain not in~ ('brewin.co.uk', 'brewin.ie')
+  // first-time sender
+  and (
+          (
+              sender.email.domain.root_domain in $free_email_providers
+              and sender.email.email not in $sender_emails
+          )
+          or (
+              sender.email.domain.root_domain not in $free_email_providers
+              and sender.email.domain.domain not in $sender_domains
+          )
+  )
+tags:
+  - "Brand impersonation"
+  - "Suspicious sender"
