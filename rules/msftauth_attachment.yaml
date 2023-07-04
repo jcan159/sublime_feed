@@ -5,7 +5,7 @@ type: "rule"
 severity: "low"
 source: |
   type.inbound and
-any(attachments, 
+  any(attachments, 
         (any(file.explode(.), "unescape" in .scan.javascript.identifiers))
         and
         any(file.explode(.), 
